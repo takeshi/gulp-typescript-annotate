@@ -1,0 +1,36 @@
+{
+    "version": "1.4.1",
+    "compilerOptions": {
+        "target": "es5",
+        "module": "commonjs",
+        "declaration": false,
+        "noImplicitAny": false,
+        "removeComments": true,
+        "noLib": false
+    },
+    "filesGlob": [
+        "./lib/**/*.ts",
+        "./examples/src/**/*.ts",
+        "./examples/.tmp/typings/**/*.ts",
+        "!./node_modules/**/*.ts",
+        "!./examples/node_modules/**/*.ts",
+        "./node_modules/typescript/bin/typescript.d.ts"
+    ],
+    "files": [
+        "./lib/class-modify.ts",
+        "./examples/src/app/components/navbar/navbar.controller.ts",
+        "./examples/src/app/index.ts",
+        "./examples/src/app/main/main.controller.ts",
+        "./examples/.tmp/typings/angular-ui-router/angular-ui-router.d.ts",
+        "./examples/.tmp/typings/angularjs/angular-animate.d.ts",
+        "./examples/.tmp/typings/angularjs/angular-cookies.d.ts",
+        "./examples/.tmp/typings/angularjs/angular-mocks.d.ts",
+        "./examples/.tmp/typings/angularjs/angular-sanitize.d.ts",
+        "./examples/.tmp/typings/angularjs/angular.d.ts",
+        "./examples/.tmp/typings/bootstrap/bootstrap.d.ts",
+        "./examples/.tmp/typings/jquery/jquery.d.ts",
+        "./examples/.tmp/typings/tsd.d.ts",
+        "./node_modules/typescript/bin/typescript.d.ts"
+    ],
+    "compileOnSave": false
+}

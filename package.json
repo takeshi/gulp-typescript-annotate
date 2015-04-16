@@ -1,0 +1,33 @@
+{
+  "name": "gulp-typescript-annotate",
+  "version": "0.0.1",
+  "description": "auto generate Class Name and Method Parameter Names for TypeScript",
+  "main": "index.js",
+  "dependencies": {
+    "falafel": "^1.0.1",
+    "gulp": "^3.8.11",
+    "through2": "^0.6.5",
+    "typescript": "^1.5.0-alpha"
+  },
+  "devDependencies": {
+    "gulp-typescript": "^2.6.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/takeshi/gulp-typescript-annotate.git"
+  },
+  "keywords": [
+    "gulp",
+    "typescript",
+    "angular"
+  ],
+  "author": "takeshi.kondo@gmail.com",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/takeshi/gulp-typescript-annotate/issues"
+  },
+  "homepage": "https://github.com/takeshi/gulp-typescript-annotate"
+}
