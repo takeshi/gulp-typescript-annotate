@@ -17,17 +17,14 @@ module examples {
     }
   }
 
-  interface IMainScope extends ng.IScope {
-    awesomeThings: Thing[]
-  }
-
   @State({
    name:'main',
    url: '/'
   })
-  export class MainCtrl {
+  class MainCtrl {
+    awesomeThings: Thing[]
 
-    constructor ($scope: IMainScope) {
+    constructor () {
       var awesomeThings = [
       {
         'title': 'AngularJS',
@@ -79,11 +76,12 @@ module examples {
       }
     ];
 
-      $scope.awesomeThings = new Array<Thing>();
+    this.awesomeThings = new Array<Thing>();
 
-      awesomeThings.forEach(function(awesomeThing: Thing) {
-        $scope.awesomeThings.push(awesomeThing);
-      });
+    awesomeThings.forEach((awesomeThing: Thing)=> {
+      this.awesomeThings.push(awesomeThing);
+    });
+
     }
   }
 

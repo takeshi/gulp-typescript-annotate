@@ -1,14 +1,11 @@
 module examples {
   'use strict';
 
-  interface INavbarScope extends ng.IScope {
-    date: Date
-  }
-
   @Component
-  export class NavbarCtrl {
-    constructor ($scope: INavbarScope) {
-      $scope.date = new Date();
+  class NavbarCtrl {
+    date: Date;
+    constructor () {
+      this.date = new Date();
     }
   }
 
