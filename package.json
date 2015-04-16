@@ -1,16 +1,15 @@
 {
   "name": "gulp-typescript-annotate",
-  "version": "0.0.1",
-  "description": "auto generate Class Name and Method Parameter Names for TypeScript",
+  "version": "0.0.2",
+  "description": "Append class name and constructor parameter names for TypeScript",
   "main": "index.js",
   "dependencies": {
-    "falafel": "^1.0.1",
-    "gulp": "^3.8.11",
-    "through2": "^0.6.5",
-    "typescript": "^1.5.0-alpha"
+    "through2": "~0.6.5",
+    "typescript": "~1.5.0-alpha"
   },
   "devDependencies": {
-    "gulp-typescript": "^2.6.0"
+    "gulp": "~3.8.11",
+    "gulp-typescript": "~2.6.0"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
