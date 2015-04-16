@@ -1,7 +1,7 @@
 {
   "name": "gulp-typescript-annotate",
-  "version": "0.0.2",
-  "description": "Append class name and constructor parameter names for TypeScript",
+  "version": "0.0.3",
+  "description": "Append class name and constructor parameter names to TypeScript CLass",
   "main": "index.js",
   "dependencies": {
     "through2": "~0.6.5",
@@ -23,7 +23,7 @@
     "typescript",
     "angular"
   ],
-  "author": "takeshi.kondo@gmail.com",
+  "author": "konkicci@gmail.com",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/takeshi/gulp-typescript-annotate/issues"
