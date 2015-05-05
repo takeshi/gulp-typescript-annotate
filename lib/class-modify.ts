@@ -13,7 +13,7 @@ export function transform(source,typesafe=false) {
                 classDeclaration(<ts.ClassDeclaration>node);
                 break;
             case ts.SyntaxKind.Constructor:
-                methodDeclaration(<ts.MethodDeclaration>node);
+             constructorDeclaration(<ts.Constructor>node);
             default:
                 next();
         }
@@ -28,14 +28,14 @@ export function transform(source,typesafe=false) {
             className = null;
         }
 
-        function methodDeclaration(node: ts.MethodDeclaration) {
+        function constructorDeclaration(node: ts.Constructor) {
 
             var types = node.parameters.map((parameter) => {
                 var typeRef = <ts.TypeReferenceNode> parameter.type;
                 if (typesafe && typeRef) {
                     var typeName = <ts.QualifiedName>typeRef.typeName;
                     if(typeName){
-                     return (<ts.Identifier>typeName.right).text;                     
+                     return (<ts.Identifier>typeName.right).text;
                     }
                 }
                 return (<ts.Identifier>parameter.name).text;
