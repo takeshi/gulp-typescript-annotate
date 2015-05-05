@@ -1,6 +1,6 @@
 import * as ts from 'typescript'
 
-export function transform(source) {
+export function transform(source,typesafe=false) {
 
     let sourceFile = ts.createSourceFile('convert.source.ts', source, ts.ScriptTarget.ES6, /*setParentNodes */ true);
 
@@ -29,14 +29,33 @@ export function transform(source) {
         }
 
         function methodDeclaration(node: ts.MethodDeclaration) {
+
             var types = node.parameters.map((parameter) => {
-                return '\'' + (<any>parameter).name.text + '\'';
+                var typeRef = <ts.TypeReferenceNode> parameter.type;
+                if (typesafe && typeRef) {
+                    var typeName = <ts.QualifiedName>typeRef.typeName;
+                    if(typeName){
+                     return (<ts.Identifier>typeName.right).text;                     
+                    }
+                }
+                return (<ts.Identifier>parameter.name).text;
+            })
+                .map((typeName: string) => {
+                if (/^I.*Service$/.test(typeName)) {
+                    typeName = typeName.substring(1)
+                    typeName = typeName.substring(0, typeName.length - 'Service'.length);
+                    typeName = '$' + typeName[0].toLowerCase() + typeName.substr(1);
+                } else {
+                    typeName = typeName[0].toLowerCase() + typeName.substr(1);
+                }
+                return '\'' + typeName + '\'';
             });
+
             var source = '';
-            if(node.kind === ts.SyntaxKind.Constructor){
-              source += 'static $className = \'' + className +'\';';
+            if (node.kind === ts.SyntaxKind.Constructor) {
+                source += 'static $className = \'' + className + '\';';
             }
-            source += 'static $inject = [' +types.join(',')+ '];';
+            source += 'static $inject = [' + types.join(',') + '];';
             update(source);
         }
 
@@ -46,7 +65,7 @@ export function transform(source) {
             source += newSource;
             source += '/*</generated>*/';
             var end = node.getEnd();
-            var pre = oldSource.substring(0,end);
+            var pre = oldSource.substring(0, end);
             var post = oldSource.substring(end);
             var newSource = pre + source + post;
 

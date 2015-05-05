@@ -1,11 +1,11 @@
 {
   "name": "gulp-typescript-annotate",
-  "version": "0.0.3",
+  "version": "0.1.0",
   "description": "Append class name and constructor parameter names to TypeScript CLass",
   "main": "index.js",
   "dependencies": {
     "through2": "~0.6.5",
-    "typescript": "~1.5.0-alpha"
+    "typescript": "~1.5.0-beta"
   },
   "devDependencies": {
     "gulp": "~3.8.11",

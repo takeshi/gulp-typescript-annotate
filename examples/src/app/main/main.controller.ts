@@ -24,7 +24,10 @@ module examples {
   class MainCtrl {
     awesomeThings: Thing[]
 
-    constructor () {
+    constructor (t:angular.ITimeoutService) {
+      t(()=>{
+        console.log(t);
+      });
       var awesomeThings = [
       {
         'title': 'AngularJS',

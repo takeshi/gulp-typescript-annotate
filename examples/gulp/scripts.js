@@ -13,7 +13,7 @@ module.exports = function(options) {
 
     return gulp.src(options.src + '/app/**/*.ts')
       .pipe($.sourcemaps.init())
-      .pipe(typescriptAnnotate())
+      .pipe(typescriptAnnotate({typesafe:true}))
       .pipe($.typescript(
         {target: 'es5'}
        )).on('error', options.errorHandler('TypeScript'))

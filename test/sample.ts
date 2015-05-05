@@ -9,7 +9,7 @@ class TestController{
 
    date:Date;
 
-   constructor(public $q:angular.IQService){
+   constructor(public q:angular.IQService,test:string){
      this.date = new Date();
    }
 
@@ -19,3 +19,5 @@ class TestController{
 import {transform} from '../lib/class-modify';
 
 console.log(transform(source));
+
+console.log(transform(source,true));

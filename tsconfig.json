@@ -32,5 +32,5 @@
         "./examples/.tmp/typings/tsd.d.ts",
         "./node_modules/typescript/bin/typescript.d.ts"
     ],
-    "compileOnSave": false
+    "compileOnSave": true
 }

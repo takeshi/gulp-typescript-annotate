@@ -1,5 +1,6 @@
 # gulp-typescript-annotate
-gulp plugin to append class name & constructor parameter names  to TypeScript CLass. Appended class name & constructor parameter names are useful to minimized AngularJs Dependency Injection.
+gulp plugin to append class name & constructor parameter names to TypeScript Class.
+If typesafe option is true, this plugin append $inject from constructor parameter *type*.
 
 ## Motivation
 Working with TypeScript 1.5 Decorator, we can write component-based programing code for AngularJS.
@@ -15,14 +16,14 @@ class TestController{
 
    date:Date;
 
-   constructor(public $q:angular.IQService){
+   constructor(public q:angular.IQService){
      this.date = new Date();
    }
 
 }
 ```
 
-gulp-typescript-annotate append $className and $inject.
+gulp-typescript-annotate append $className and $inject to code.
 
 ```tyepscript:Output
 let Controller = (clazz:any)=>{
@@ -35,7 +36,7 @@ class TestController{
 
    date:Date;
 
-   constructor(public $q:angular.IQService){
+   constructor(public q:angular.IQService){
      this.date = new Date();
    }/*<generated>*/static $className = 'TestController';static $inject = ['$q'];/*</generated>*/
 
@@ -64,7 +65,7 @@ var typescriptAnnotate = require('gulp-typescript-annotate');
 
 gulp.task('scripts', function () {
   return gulp.src('./**/*.ts')
-    .pipe(typescriptAnnotate())
+    .pipe(typescriptAnnotate({typesafe:true}))
     .pipe(typescript())
     .pipe(gulp.dest('./dist'));
 });
