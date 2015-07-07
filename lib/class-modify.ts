@@ -1,19 +1,32 @@
-import * as ts from 'typescript'
+import * as ts from 'typescript';
 
-export function transform(source,typesafe=false) {
+export function transform(source, typesafe = false, forceLowerCase = false) {
+
+    let startCharacterTransform:(s:string)=>string;
+
+    if (forceLowerCase) {
+        startCharacterTransform = (s:string) => {
+            return s.toLowerCase();
+        };
+    } else {
+        startCharacterTransform = (s:string) => {
+            return s;
+        };
+    }
 
     let sourceFile = ts.createSourceFile('convert.source.ts', source, ts.ScriptTarget.ES6, /*setParentNodes */ true);
 
     ts.forEachChild(sourceFile, each);
 
     var className = null;
-    function each(node: ts.Node) {
+
+    function each(node:ts.Node) {
         switch (node.kind) {
             case ts.SyntaxKind.ClassDeclaration:
                 classDeclaration(<ts.ClassDeclaration>node);
                 break;
             case ts.SyntaxKind.Constructor:
-             constructorDeclaration(<ts.Constructor>node);
+                constructorDeclaration(<ts.ConstructorDeclaration>node);
             default:
                 next();
         }
@@ -22,34 +35,34 @@ export function transform(source,typesafe=false) {
             ts.forEachChild(node, each);
         }
 
-        function classDeclaration(node: ts.ClassDeclaration) {
+        function classDeclaration(node:ts.ClassDeclaration) {
             className = node.name.text;
             next();
             className = null;
         }
 
-        function constructorDeclaration(node: ts.Constructor) {
+        function constructorDeclaration(node:ts.ConstructorDeclaration) {
 
             var types = node.parameters.map((parameter) => {
                 var typeRef = <ts.TypeReferenceNode> parameter.type;
                 if (typesafe && typeRef) {
                     var typeName = <ts.QualifiedName>typeRef.typeName;
-                    if(typeName){
-                     return (<ts.Identifier>typeName.right).text;
+                    if (typeName) {
+                        return (<ts.Identifier>typeName.right).text;
                     }
                 }
                 return (<ts.Identifier>parameter.name).text;
             })
-                .map((typeName: string) => {
-                if (/^I.*Service$/.test(typeName)) {
-                    typeName = typeName.substring(1)
-                    typeName = typeName.substring(0, typeName.length - 'Service'.length);
-                    typeName = '$' + typeName[0].toLowerCase() + typeName.substr(1);
-                } else {
-                    typeName = typeName[0].toLowerCase() + typeName.substr(1);
-                }
-                return '\'' + typeName + '\'';
-            });
+                .map((typeName:string) => {
+                    if (/^I.*Service$/.test(typeName)) {
+                        typeName = typeName.substring(1);
+                        typeName = typeName.substring(0, typeName.length - 'Service'.length);
+                        typeName = '$' + startCharacterTransform(typeName[0]) + typeName.substr(1);
+                    } else {
+                        typeName = startCharacterTransform(typeName[0]) + typeName.substr(1);
+                    }
+                    return '\'' + typeName + '\'';
+                });
 
             var source = '';
             if (node.kind === ts.SyntaxKind.Constructor) {
@@ -59,7 +72,7 @@ export function transform(source,typesafe=false) {
             update(source);
         }
 
-        function update(newSource: string) {
+        function update(newSource:string) {
             var oldSource = sourceFile.text;
             var source = '/*<generated>*/';
             source += newSource;
@@ -69,7 +82,7 @@ export function transform(source,typesafe=false) {
             var post = oldSource.substring(end);
             var newSource = pre + source + post;
 
-            let textRange: ts.TextChangeRange = {
+            let textRange:ts.TextChangeRange = {
                 newLength: (newSource.length - sourceFile.text.length),
 
                 span: {
@@ -82,6 +95,7 @@ export function transform(source,typesafe=false) {
         }
 
     }
+
     return sourceFile.text;
 
 }

@@ -70,3 +70,10 @@ gulp.task('scripts', function () {
     .pipe(gulp.dest('./dist'));
 });
 ```
+
+### Options
+#### forceLowerCase
+
+By default injected type names use the same casing as the parameter name in the constructor. 
+If you want to have all types starting with lowercase, set ```forceLowerCase: true```.
+
