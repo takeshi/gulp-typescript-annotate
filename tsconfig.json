@@ -18,6 +18,7 @@
     ],
     "files": [
         "./lib/class-modify.ts",
+        "./test/sample.ts",
         "./examples/src/app/components/navbar/navbar.controller.ts",
         "./examples/src/app/index.ts",
         "./examples/src/app/main/main.controller.ts",

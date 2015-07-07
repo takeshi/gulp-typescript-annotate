@@ -5,7 +5,7 @@ module.exports = function (opts) {
     var stream = through.obj(function (file, enc, cb) {
         if (file.isBuffer()) {
             var contents = file.contents.toString();
-            contents = modify.transform(contents,opts.typesafe);
+            contents = modify.transform(contents, opts.typesafe, opts.forceLowerCase);
             file.contents = new Buffer(contents.toString());
         }
         this.push(file);
